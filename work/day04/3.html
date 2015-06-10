@@ -1,0 +1,99 @@
+<html>
+
+	<head>
+		<meta charset="UTF-8" />
+		<title></title>
+		<script type="text/javascript">
+			/* 列表中完成全选反选功能。
+			 *
+			 * */
+			window.addEventListener('load',function()
+			{
+				//获取全部元素
+				var reverse = document.getElementById('reverse');
+				var checkAll = document.getElementById('all');
+				//获取table元素
+				var tab = document.getElementById('tab');
+				//添加事件
+				
+				reverse.addEventListener('click',function(){
+					var allChild = tab.childNodes[1];
+					var allTr = allChild.getElementsByTagName('tr');
+					for (var i = 1; i < allTr.length; i++) {
+						var current = allTr[i].getElementsByTagName('td');
+						var check = current[0].getElementsByTagName("input");
+						check[0].checked = !check[0].checked;
+					}
+					
+				});
+				checkAll.addEventListener('change',function(data){
+					var allChild = tab.childNodes[1];
+					var allTr = allChild.getElementsByTagName('tr');
+					for (var i = 1; i < allTr.length; i++) {
+						var current = allTr[i].getElementsByTagName('td');
+						var check = current[0].getElementsByTagName("input");
+						check[0].checked = checkAll.checked;
+					}
+				});
+				
+				
+				
+			});
+		</script>
+	</head>
+
+	<body>
+		<table border="1px" id="tab">
+			<tr>
+				<th>
+					<input type="checkbox" id="all">
+				</th>
+				<th>姓名</th>
+				<th>年龄</th>
+				<th>成绩</th>
+			</tr>
+			<tr>
+				<td>
+					<input type="checkbox" name="row">
+				</td>
+				<td>张三</td>
+				<td>23</td>
+				<td>99</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="checkbox" name="row">
+				</td>
+				<td>李四</td>
+				<td>53</td>
+				<td>34</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="checkbox" name="row">
+				</td>
+				<td>瓦格</td>
+				<td>56</td>
+				<td>134</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="checkbox" name="row">
+				</td>
+				<td>哈算法</td>
+				<td>23</td>
+				<td>99</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="checkbox" name="row">
+				</td>
+				<td>啊三地哦</td>
+				<td>76</td>
+				<td>234</td>
+			</tr>
+		</table>
+		<button id="reverse">反选</button>
+	</body>
+
+</html>

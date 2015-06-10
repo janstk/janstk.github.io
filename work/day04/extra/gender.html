@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript">
+			function male()
+			{
+				opener.document.getElementById('gender').value = "男性";
+				close();
+			}
+			function female()
+			{
+				opener.document.getElementById('gender').value = "女性";
+				close();
+			}
+		</script>
+	</head>
+	<body>
+		<button onclick="male()">男性</button>
+		<button onclick="female()">女性</button>
+	</body>
+</html>

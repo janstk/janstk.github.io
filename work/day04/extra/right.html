@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="application/javascript" src="main.js"></script>
+		<script type="text/javascript">
+			window.name = "right";
+			window.addEventListener('load', function() {
+				var deAll = document.getElementById('delAll');
+				var selectAll = document.getElementById('selectAll');
+				var sortByAge = document.getElementById('sortByAge');
+				selectAll.addEventListener('click', function() {
+					//全选方法。
+					var rows = document.getElementsByName('row');
+					for (var x = 0; x < rows.length; x++) {
+						rows[x].checked = selectAll.checked;
+					}
+				});
+				deAll.addEventListener('click', function() {
+					//批量删除方法。
+					var rows = document.getElementsByName('row');
+					for (var x = 0; x < rows.length; x++) {
+						if (rows[x].checked) {
+							delNode(rows[x].parentNode.parentNode);
+							x = -1;
+						}
+					}
+				});
+				sortByAge.addEventListener('click', function() {
+					//获取元素并且排序
+					var allEntry = document.getElementById('tab');
+					var entrys = allEntry.getElementsByTagName('tr');
+					var tmpArr = new Array();
+					for (var x = 0; x < entrys.length; x++) {
+						var allTd = entrys[x].getElementsByTagName('td');
+						var tmpEntry = new Entry(allTd[1].innerHTML, allTd[2].innerHTML, allTd[3].innerHTML);
+						tmpArr.push(tmpEntry);
+					}
+					tmpArr.sort(compareEntry);
+					//清空原来的元素
+					var rows = document.getElementsByName('row');
+					var len = rows.length;
+					for (var x = 0; x < len; x++) {
+						delNode(rows[0].parentNode.parentNode);
+					}
+					//添加排序之后的元素
+					addArrayTolist(tmpArr);
+				});
+			});
+
+			function add(newEntry, tab) {
+				var tabEntry = document.createElement('tr');
+				tabEntry.innerHTML = '<td><input type="checkbox" name="row"></td><tr><td>' + newEntry.username + '</td><td>' + newEntry.age + '</td><td>' + newEntry.gender + '</td><td><a href="#" name="delMe">删除</a></td></tr>';
+				tab.appendChild(tabEntry);
+			}
+
+			function addAnthorEvent() {
+				var delMe = document.getElementsByName("delMe");
+				for (var x = 0; x < delMe.length; x++) {
+					if (!delMe[x].onclick)
+						delMe[x].addEventListener('click', function() {
+							delNode(this.parentNode.parentNode);
+						});
+				}
+			}
+
+			function addArrayTolist(arr) {
+				var tab = document.getElementById('tab')
+				for (var x = 0; x < arr.length; x++) {
+					add(arr[x], tab);
+				}
+				addAnthorEvent();
+			}
+		</script>
+	</head>
+
+	<body>
+		<table border="1" align="center" width="70%">
+			<tbody>
+				<tr>
+					<td>
+						<input type="checkbox" id="selectAll" />
+					</td>
+					<th>姓名</th>
+					<th>年龄</th>
+					<th>性别</th>
+					<th>操作</th>
+				</tr>
+			</tbody>
+			<tbody id="tab">
+				<tr>
+					<td>
+						<input type="checkbox" name="row" />
+					</td>
+					<td>张三</td>
+					<td>23</td>
+					<td>男性</td>
+					<td><a href="#" name="delMe">删除</a>
+					</td>
+				</tr>
+			</tbody>
+
+		</table>
+		<button id="delAll">批量删除</button>
+		<button id="sortByAge">按年龄排序</button>
+	</body>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript">
+			//用setTimeout 完成时钟案例。
+			
+			var clockId = null;
+			var clockDom = null;
+			
+			function setTime()
+			{
+				clockDom.innerHTML = new Date().toLocaleString();
+			}
+			function loadFinished()
+			{
+				clockDom = document.getElementById("clock");
+				setTime();
+			}
+			function begin()
+			{
+				setTime();
+				if(!clockId)
+					mTimer();
+			}
+			function mTimer()
+			{
+				clockId = setTimeout(mTimer,1000);
+				setTime();
+			}
+			function end ()
+			{
+				if(clockId)
+				{
+					clearTimeout(clockId);
+					clockId = null;
+				}
+			}
+		</script>
+	</head>
+	<body onload="loadFinished()">
+	<div id="clock"></div>
+	<button onclick="begin()">Start</button>
+	<button onclick="end()">End</button>
+	</body>
+</html>
